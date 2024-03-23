@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-label
+  labels:
+    type: web-app-server
+    version: '1.0'
+    label1: coba
+spec:
+  containers:
+  - name: nginx
+    image: nginx:stable-alpine3.17-slim
+    ports:
+    - containerPort: 80

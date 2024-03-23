@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-annotation
+  labels:
+    type: web-app-server
+    version: '1.0'
+    label1: coba
+  annotations:
+    description: Ini adalah deskripsi aplikasi. contoh banyak text.
+spec:
+  containers:
+  - name: nginx
+    image: nginx:stable-alpine3.17-slim
+    ports:
+    - containerPort: 80
