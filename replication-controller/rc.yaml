@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: nginx-rc
+spec:
+  replicas: 3 # how many clone will be create
+  selector:
+    app: try-rc # what selector have to maintenenced by RC. referrence to template labels
+    app2: try-rc2 # using operand AND
+  template:
+    metadata:
+      name: nginx-rc-template
+      labels:
+        app: try-rc
+        app2: try-rc2
+    spec:
+      containers:
+      - name: nginx-rc-container
+        image: nginx:stable-alpine3.17-slim
+        ports:
+        - containerPort: 80
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          failureThreshold: 3
+          successThreshold: 1
+          timeoutSeconds: 1

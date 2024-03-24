@@ -1,0 +1,23 @@
+apiVersion: apps/v1 # apps
+kind: ReplicaSet
+metadata:
+  name: nginx-rs
+  labels:
+    rs-label: rs-label1
+    rs-label2: rs-label2
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: try-rs # using operand AND
+  template:
+    metadata:
+      name: nginx-rs-template
+      labels:
+        app: try-rs
+    spec:
+      containers:
+      - name: nginx-rs-app
+        image: nginx:stable-alpine3.17-slim
+        ports:
+        - containerPort: 80

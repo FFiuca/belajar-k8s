@@ -53,4 +53,11 @@ kubectl delete pod --all -n finance
 # liveness, readness, startup
 kubectl create -f .\probe\probe.yaml
 
+## ReplicationController
+kubectl get rc
+kubectl create -f .\replication-controller\rc.yaml
+kubectl describe rc nginx-rc
+kubectl delete rc nginx-rc --cascade=false # option cascade will only delete rc, not include related pods
 
+## ReplicaSet
+# same with RC, have adjustment in selector

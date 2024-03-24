@@ -1,0 +1,36 @@
+apiVersion: apps/v1 # https://sl.bing.net/goldIaaEUzQ. apiVersion provided by k8s itself
+kind: ReplicaSet
+metadata:
+  name: nginx-rs-expression
+  labels:
+    rs-label: rs-label1
+    rs-label2: rs-label2
+spec:
+  replicas: 2
+  selector:
+    matchExpressions:
+    # using operand AND
+    # k8s will check selector regarding to label when create. when not match will be error
+    - key: app
+      operator: In
+      values:
+      - try-rs-expression
+      - try-rs-expression2
+    - key: env
+      operator: In
+      values:
+      - local
+      - testing
+      - prod
+  template:
+    metadata:
+      name: nginx-rs-expression-template
+      labels:
+        app: try-rs-expression
+        env: local
+    spec:
+      containers:
+      - name: nginx-rs-expression-app
+        image: nginx:stable-alpine3.17-slim
+        ports:
+        - containerPort: 80
