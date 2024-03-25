@@ -61,3 +61,29 @@ kubectl delete rc nginx-rc --cascade=false # option cascade will only delete rc,
 
 ## ReplicaSet
 # same with RC, have adjustment in selector
+kubectl create -f .\replica-set\rs-expression.yaml
+kubectl get rs
+kubectl describe rs nginx-rs-expression
+
+## DaemonSet
+# not sure what it is.  It ensures that a copy of a pod runs on either all or some specified nodes within the cluster. This makes DaemonSet ideal for tasks like monitoring, logging, or running a network proxy on every node
+# Jika kita ingin menjalankan Pod di setiap Node yang ada di Kubernetes, dan tiap Pod hanya boleh jalan 1 di Node, kita bisa menggunakan Daemon Set
+# auto create when pod deleted
+kubectl get ds
+kubectl describe ds daemon-set
+kubectl delete ds daemon-set
+
+## Jobs
+# it only run one time and after finish will be stop.
+kubectl create -f .\job\job.yaml
+kubectl get job
+kubectl describe job jobName
+kubectl delete job jobName
+
+## CronJob
+# will be create job at configured schedule
+kubectl get cronjob
+kubectl create -f .\cron-job\cron-job.yaml
+
+## Log
+kubectl log podName

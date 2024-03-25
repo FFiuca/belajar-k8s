@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: daemon-set
+  labels:
+    app: daemon-set
+spec:
+  selector:
+    matchExpressions:
+    - key: app
+      operator: In
+      values:
+      - daemon-set-nginx
+  template:
+    metadata:
+      name: daemon-template-nginx
+      labels:
+        app: daemon-set-nginx
+    spec:
+      containers:
+      - name: daemon-set-app-nginx
+        image: nginx:stable-alpine3.17-slim
+        ports:
+        - containerPort: 80
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          failureThreshold: 3
+          successThreshold: 1
+          timeoutSeconds: 1

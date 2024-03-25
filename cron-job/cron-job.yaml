@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cronjob-nodejs
+  labels:
+    app: cronjob-apps
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: cronjob-nodejs
+          labels:
+            app: cronjob-nodejs
+        spec:
+          restartPolicy: OnFailure # OnFailure or Never
+          containers:
+          - name: cronjob-nodejs-apps
+            image: khannedy/nodejs-job
+            ports:
+            - containerPort: 80
+          # - name: hello
+#   image: busybox:1.28
+#   command:
+#   - /bin/sh
+#   - -c
+#   - date; echo Hello from the Kubernetes cluster

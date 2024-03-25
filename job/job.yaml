@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: nodejs-job-k8s
+spec:
+  completions: 5 # number of pod will be create to complete job
+  parallelism: 2 # in each run, how many pod will be create untill completions end
+  ttlSecondsAfterFinished: 100
+  template:
+    spec:
+      restartPolicy: Never # must never
+      containers:
+      - name: nodejs-job
+        image: khannedy/nodejs-job
+        # command: ["perl", "-Mbignum=bpi", "-wle", "print bpi(2000)"]
