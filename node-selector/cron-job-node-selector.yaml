@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cronjob-nodejs-node-selector
+  labels:
+    app: cronjob-apps-node-selector
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: cronjob-nodejs-node-selector
+          labels:
+            app: cronjob-nodejs-node-selector
+        spec:
+          nodeSelector:
+            gpu: 'true'
+          restartPolicy: OnFailure # OnFailure or Never
+          containers:
+          - name: cronjob-nodejs-apps-node-selector
+            image: khannedy/nodejs-job
+            ports:
+            - containerPort: 80
+          # - name: hello
+#   image: busybox:1.28
+#   command:
+#   - /bin/sh
+#   - -c
+#   - date; echo Hello from the Kubernetes cluster

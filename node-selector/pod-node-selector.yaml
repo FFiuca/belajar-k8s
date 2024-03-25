@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-node-selector
+spec:
+  nodeSelector:
+    gpu: 'true' # will be create in docker-desktop node due have same labels
+  containers:
+  - name: nginx-apps-node-selector
+    image: nginx:stable-alpine3.17-slim
+    ports:
+    - containerPort: 80

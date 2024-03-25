@@ -87,3 +87,10 @@ kubectl create -f .\cron-job\cron-job.yaml
 
 ## Log
 kubectl log podName
+
+## NodeSelector
+# to specify where node to create pod based on label
+# every source can be use nodeselector
+kubectl get node --show-labels
+# test case only create in node which have label gpu=true
+kubectl label node docker-desktop gpu=true
