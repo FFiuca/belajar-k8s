@@ -94,3 +94,16 @@ kubectl log podName
 kubectl get node --show-labels
 # test case only create in node which have label gpu=true
 kubectl label node docker-desktop gpu=true
+
+
+## ALL
+kubectl get all -n namespace
+kubectl delete all -n namespace
+
+## Service
+# like gateway in docker. connect between network and pod
+kubectl create -f .\service\service.yaml
+kubectl create -f .\service\rs-service.yaml
+kubectl create -f .\service\accessor-service.yaml
+kubectl exec -it nginx-accessor-service /bin/sh
+curl http://10.97.181.186:8080

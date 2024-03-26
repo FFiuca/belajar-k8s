@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  # label will be manage by service. pod's label
+  # matchExpressions: # error
+  # - key: env
+  #   operator: In
+  #   values:
+  #   - local-service
+  #   - testing-service
+  #   - prod-service
+  # matchLabels: # error
+  #   env: local-service
+  selector:
+    env: local-service
+  ports:
+  - port: 8080
+    targetPort: 80
