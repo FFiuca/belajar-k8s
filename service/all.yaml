@@ -1,0 +1,79 @@
+apiVersion: apps/v1 # https://sl.bing.net/goldIaaEUzQ. apiVersion provided by k8s itself
+kind: ReplicaSet
+metadata:
+  name: nginx-rs-service
+  labels:
+    rs-label: rs-label1-service
+    rs-label2: rs-label2-service
+spec:
+  replicas: 3
+  selector:
+    matchExpressions:
+    # using operand AND
+    # k8s will check selector regarding to label when create. when not match will be error
+    - key: app
+      operator: In
+      values:
+      - try-rs-service
+      - try-rs-service
+    - key: env
+      operator: In
+      values:
+      - local-service
+      - testing-service
+      - prod-service
+  template:
+    metadata:
+      name: nginx-rs-template-service
+      labels:
+        app: try-rs-service
+        env: local-service
+    spec:
+      containers:
+      - name: nginx-rs-app-service
+        image: nginx:stable-alpine3.17-slim
+        ports:
+        - containerPort: 80
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  # label will be manage by service. pod's label
+  # matchExpressions: # error
+  # - key: env
+  #   operator: In
+  #   values:
+  #   - local-service
+  #   - testing-service
+  #   - prod-service
+  # matchLabels: # error
+  #   env: local-service
+  selector:
+    env: local-service
+  ports:
+  - port: 8080
+    targetPort: 80
+
+
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-accessor-service
+  labels:
+    name: nginx-accessor-service
+spec:
+  containers:
+  - name: nginx-accessor-service
+    image: khannedy/nginx-curl
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+    - containerPort: 80

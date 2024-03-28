@@ -107,3 +107,18 @@ kubectl create -f .\service\rs-service.yaml
 kubectl create -f .\service\accessor-service.yaml
 kubectl exec -it nginx-accessor-service /bin/sh
 curl http://10.97.181.186:8080
+# Access via dns : nama-service.nama-ns.svc.cluster.local:port
+curl http://nginx-service.default.svc.cluster.local:8080
+env | grep NGINX_SERVICE # cek env
+kubectl get endpoints # cek endpoint service
+
+## External service
+# is gate to access ip/domain in external kubernetes environment
+kubectl create -f .\external-service\domain.yaml
+kubectl exec nginx-accessor-service -it /bin/sh
+curl http://example-service.default.svc.cluster.local # it should access example.com via curl. but no result get, need check again next
+
+
+## Expose Service
+kubectl create -f .\expose-service\node-port\node-port.yaml
+curl http://localhost:30001

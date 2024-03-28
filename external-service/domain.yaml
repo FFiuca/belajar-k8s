@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-service
+  labels:
+    app: external-service
+spec:
+  selector:
+    app: external-service
+  type: ExternalName
+  externalName: google.com
+  ports:
+  - port: 80
+
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: accessor-external-service
+  labels:
+    name: accessor-external-service
+spec:
+  containers:
+  - name: accessor-external-service
+    image: khannedy/nginx-curl
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+    - containerPort: 80
