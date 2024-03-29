@@ -122,3 +122,12 @@ curl http://example-service.default.svc.cluster.local # it should access example
 ## Expose Service
 kubectl create -f .\expose-service\node-port\node-port.yaml
 curl http://localhost:30001
+
+# LoadBalancer
+# only can run in cloud
+
+# Ingress
+# simplify expose multiple service using url domain
+# actually avaible to test in local. but error when install ingress add-on
+# the concept is ingress will map all services by url and ingress will forward request to related service. Service will handle which node and pod will be receive.
+# need setting domain to hit ingress domain.
