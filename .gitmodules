@@ -1,0 +1,3 @@
+[submodule "examples2"]
+	path = examples2
+	url = https://github.com/khannedy/belajar-kubernetes.git
