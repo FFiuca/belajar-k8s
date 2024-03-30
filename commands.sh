@@ -131,3 +131,12 @@ curl http://localhost:30001
 # actually avaible to test in local. but error when install ingress add-on
 # the concept is ingress will map all services by url and ingress will forward request to related service. Service will handle which node and pod will be receive.
 # need setting domain to hit ingress domain.
+
+## VOLUME
+kubectl create -f .\volume\rs-volume.yaml
+kubectl exec -it rs-volume-8gbf7 /bin/sh
+cat app/html/index.html
+
+## SharingVolume
+kubectl create -f .\volume\rs-sharing-volume.yaml
+localhost:30003
