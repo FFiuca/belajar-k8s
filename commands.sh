@@ -140,3 +140,19 @@ cat app/html/index.html
 ## SharingVolume
 kubectl create -f .\volume\rs-sharing-volume.yaml
 localhost:30003
+
+## ConfigMap
+# use to manage env in k8s (none sensitive data uses).
+kubectl get configmaps
+kubectl describe configmaps name
+kubectl delete configmaps name
+kubectl create -f .\config-map\config-map.yaml
+localhost:30004
+
+## Secret
+# use to manage env in k8s (none sensitive data uses).
+# save in memory in pod. save in etcd(disk) in node.
+# when have duplicate key name, latest value will be use.
+kubectl get secret
+kubectl describe secret name
+kubectl delete secret name
