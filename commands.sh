@@ -183,3 +183,13 @@ kubectl rollout history deployment nodejs-deployment
 kubectl rollout pause object name # object : deployment, ds, statefulset
 kubectl rollout unpause object name
 kubectl rollout restart object name
+
+
+## PersistentVolume
+# use to claim volume based our configuration each pod(can be different each pod)
+# make pv first then pvc then pod
+kubectl apply -f .\persistance-volume\persistance-volume.yaml
+kubectl describe pv nodejs-pv-volume
+kubectl describe pvc nodejs-pv-claim
+kubectl exec -it pod/nodejs-pv-g76n5 -- /bin/sh
+cat /app/html/index.html
