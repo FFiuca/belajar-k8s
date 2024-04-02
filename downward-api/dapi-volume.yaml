@@ -1,4 +1,4 @@
-# downward apu by volume
+# downward api by volume
 apiVersion: v1
 kind: Pod
 metadata:

@@ -156,3 +156,30 @@ localhost:30004
 kubectl get secret
 kubectl describe secret name
 kubectl delete secret name
+
+## K8S object. Imperative Management
+kubectl create -f file
+kubectl get -f file -o json/yaml | code -
+kubeclt replace -f file # update yaml. just some param: image, tolerations, activeDeadlineSeconds
+kubectl delete -f file
+# DeclarativeManagement
+kubectl apply -f file # like upsert (recomended). can use rollback
+
+## Deployment
+# use when deploy project. like replicaset
+kubectl apply -f .\deployment\deployment.yaml
+kubectl get -f .\deployment\deployment.yaml
+
+## UpdateDeployment
+# will save 10 history in default.
+kubectl apply -f .\deployment\deployment.yaml # v1
+kubectl apply -f .\deployment\deployment-update.yaml # v2
+
+## RollbackDeployment
+kubectl apply -f .\deployment\deployment-update-again.yaml #v3
+kubectl rollout status deployment nodejs-deployment
+kubectl rollout undo deployment nodejs-deployment # will rollback to v2. logic rollback will be apply last applied configuration in annotations props. if you rollback twice will be to v3 again.
+kubectl rollout history deployment nodejs-deployment
+kubectl rollout pause object name # object : deployment, ds, statefulset
+kubectl rollout unpause object name
+kubectl rollout restart object name
