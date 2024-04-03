@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nodejs-stateful-volume
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+  - ReadWriteOnce
+  hostPath:
+    path: /data/location
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nodejs-statefulet
+  labels:
+    app: nodejs-statefulet
+spec:
+  selector:
+    matchLabels:
+      app: nodejs-statefulet
+  serviceName: nodejs-statefulet-service # must declare https://github.com/kubernetes/kubernetes/issues/69608
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: nodejs-statefulet
+    spec:
+      containers:
+      - name: nodejs-statefulet
+        image: khannedy/nodejs-stateful
+        ports:
+        - containerPort: 80
+          name: web
+        volumeMounts:
+        - name: nodejs-stateful-volume-claim
+          mountPath: /app/data/
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+  volumeClaimTemplates:
+  - metadata:
+      name: nodejs-stateful-volume-claim
+    spec:
+      volumeMode: Filesystem
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1Gi
+
+
+
+
+

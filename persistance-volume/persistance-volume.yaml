@@ -22,7 +22,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: nodejs-pv-claim # pvc prefix must be same with pv. ends with -claim
+  name: nodejs-pv-volume-claim # pvc prefix must be same with pv. ends with -claim
 spec:
   resources:
     requests:
@@ -52,7 +52,7 @@ spec:
       volumes:
       - name: html
         persistentVolumeClaim:
-          claimName: nodejs-pv-claim
+          claimName: nodejs-pv-volume-claim
       containers:
       - name: nodejs-pv
         image: khannedy/nodejs-writer

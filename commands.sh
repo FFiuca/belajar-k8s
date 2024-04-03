@@ -193,3 +193,16 @@ kubectl describe pv nodejs-pv-volume
 kubectl describe pvc nodejs-pv-claim
 kubectl exec -it pod/nodejs-pv-g76n5 -- /bin/sh
 cat /app/html/index.html
+
+## Statefulset
+# use to create app which use saved data. like DB, ElasticSearch
+# so each pod will have independent volume itself
+ kubectl apply -f .\statefulset\statefulset.yaml
+ kubectl get statefulset
+ kubectl exec -it pod/nodejs-statefulet-1 -- /bin/sh
+ cat app/data/index.txt
+
+## ComputationalResource
+# use to manage rosurce will claimed by container
+# if resource is not enough, container will not run. so request resource in configuration meant resource will be guaranted by kubernetes
+
