@@ -205,4 +205,14 @@ cat /app/html/index.html
 ## ComputationalResource
 # use to manage rosurce will claimed by container
 # if resource is not enough, container will not run. so request resource in configuration meant resource will be guaranted by kubernetes
+kubectl apply -f .\resource\resource.yaml
 
+
+## HPA(Horizontal Pod Autoscalling)
+#
+minikube addons enable metrics-server
+kubectl apply -f .\hpa\hpa.yaml
+minikube service node-hpa-service # since use minikube, sometime need open with command.
+minikube dashboard
+kubectl describe hpa node-hpa
+kubectl get hpa
