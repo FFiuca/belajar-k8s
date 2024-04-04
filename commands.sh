@@ -218,3 +218,6 @@ minikube service node-hpa-service # since use minikube, sometime need open with 
 minikube dashboard
 kubectl describe hpa node-hpa
 kubectl get hpa
+
+## Note
+# every pod have cluster ip independent and can contain numbers container. not tested yet, but recomended to use different port each container in same pod.
