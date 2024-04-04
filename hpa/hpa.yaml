@@ -11,12 +11,13 @@ spec:
       app: node-hpa
   template:
     metadata:
+      name: node-hpa
       labels:
         app: node-hpa
     spec:
       containers:
       - name: node-hpa
-        image: khannedy/nodejs-web:3
+        image: khannedy/nodejs-web:1
         resources:
           limits:
             memory: "128Mi"
@@ -36,13 +37,13 @@ spec:
   ports:
   - port: 3000
     targetPort: 3000
-    nodePort: 30010
+    nodePort: 30011
 
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: node-hpa
+  name: node-hpa-scaler
 spec:
   scaleTargetRef:
     apiVersion: apps/v1

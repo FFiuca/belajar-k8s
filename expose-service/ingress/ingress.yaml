@@ -41,7 +41,7 @@ metadata:
     name: node-ingress
 spec:
   rules:
-  - host: ingress.localhost
+  - host: nginx.ingress.localhost
     http:
       paths:
       - pathType: Prefix

@@ -120,6 +120,8 @@ curl http://example-service.default.svc.cluster.local # it should access example
 
 
 ## Expose Service
+# node port. use to expose service by mapping port.
+# makesure to use docker of kubernetes context in docker desktop. when use minikube, it not work.
 kubectl create -f .\expose-service\node-port\node-port.yaml
 curl http://localhost:30001
 
